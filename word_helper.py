@@ -39,6 +39,14 @@ if "show_chinese" not in st.session_state:
 if "card_list" not in st.session_state:
     st.session_state.card_list = []
 
+# 初始化测试状态
+if "test_started" not in st.session_state:
+    st.session_state.test_started = False
+if "test_words" not in st.session_state:
+    st.session_state.test_words = pd.DataFrame()
+if "user_answers" not in st.session_state:
+    st.session_state.user_answers = {}
+    
 init_data()
 df = load_words()
 
@@ -221,29 +229,68 @@ elif menu == "🧪 随机小测试":
         st.info("记忆库暂无单词，请先添加生词")
     else:
         test_num = st.slider("本次出题数量", 3, 15, 5)
-        start_test = st.button("开始测试")
+        
+        col1, col2 = st.columns(2)
+        with col1:
+            if st.button("开始测试"):
+                st.session_state.test_started = True
+                st.session_state.test_words = df.sample(min(test_num, len(df))).reset_index(drop=True)
+                st.session_state.user_answers = {}
+                st.rerun()
+        with col2:
+            if st.button("重置测试"):
+                st.session_state.test_started = False
+                st.session_state.test_words = pd.DataFrame()
+                st.session_state.user_answers = {}
+                st.rerun()
 
-        if start_test:
-            test_words = df.sample(min(test_num, len(df))).reset_index(drop=True)
-            score = 0
+        if st.session_state.test_started and not st.session_state.test_words.empty:
+            test_words = st.session_state.test_words
             total = len(test_words)
-
+            
+            st.subheader(f"本次共 {total} 题，全部答完后提交")
+            
+            # 显示所有题目，保存答案到会话状态
             for idx, row in test_words.iterrows():
                 st.divider()
                 st.subheader(f"题目 {idx+1}")
                 st.write(f"**单词：{row['word']}**")
-                ans = st.text_input(f"请写出中文释义 #{idx+1}", key=f"ans_{idx}")
+                
+                # 保存用户输入
+                key = f"ans_{idx}"
+                ans = st.text_input(f"请写出中文释义", value=st.session_state.user_answers.get(key, ""), key=key)
+                st.session_state.user_answers[key] = ans.strip()
 
-                if ans.strip() == row["meaning"].strip():
-                    st.success("答对啦🎉")
-                    score += 1
-                elif ans.strip():
-                    st.error(f"答错啦，正确答案：{row['meaning']}")
-                    df.loc[df["word"] == row["word"], "wrong_count"] += 1
-
+            # 提交判分按钮
             st.divider()
-            st.metric("本次得分", f"{score}/{total}")
-            save_words(df)
+            if st.button("✅ 提交全部答案"):
+                score = 0
+                df_local = load_words()
+                
+                for idx, row in test_words.iterrows():
+                    user_ans = st.session_state.user_answers.get(f"ans_{idx}", "")
+                    correct_ans = row["meaning"].strip()
+                    
+                    st.divider()
+                    st.subheader(f"第 {idx+1} 题结果")
+                    st.write(f"单词：**{row['word']}**")
+                    st.write(f"你的答案：{user_ans}")
+                    st.write(f"正确答案：{correct_ans}")
+                    
+                    if user_ans == correct_ans:
+                        st.success("答对啦🎉")
+                        score += 1
+                    else:
+                        st.error("答错啦❌")
+                        df_local.loc[df_local["word"] == row["word"], "wrong_count"] += 1
+                
+                # 保存错误次数并显示分数
+                save_words(df_local)
+                st.divider()
+                st.metric("最终得分", f"{score}/{total}")
+                
+                # 测试结束
+                st.session_state.test_started = False
 
 # 5. 学习统计
 elif menu == "📊 学习统计":
