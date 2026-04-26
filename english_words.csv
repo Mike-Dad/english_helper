@@ -1,5 +1,5 @@
-﻿word,unit,meaning,sentence,add_time,master,wrong_count
-One,1.0,一,One apple,2026/4/26 11:42,0,1
-Two,1.0,二,Two apples,2026/4/26 11:43,0,0
-Three,1.0,三,Three apples,2026/4/26 11:43,0,0
-Four,1.0,四,Four bananas,2026/4/26 11:44,0,0
+﻿word,phonetic,meaning,sentence,add_time,master,wrong_count
+One,/wʌn/,一,One apple,2026/4/26 11:42,0,1
+Two,/tuː/,二,Two apples,2026/4/26 11:43,0,0
+Three,/θriː/,三,Three apples,2026/4/26 11:43,0,0
+Four,/fɔː/,四,Four bananas,2026/4/26 11:44,0,0

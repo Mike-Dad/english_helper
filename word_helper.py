@@ -6,23 +6,98 @@ from datetime import datetime
 
 # 数据文件
 DATA_FILE = "english_words.csv"
+PRESET_FILE = "preset_grade1.csv"
 
-# 初始化数据
+# 人教版小学一年级英语预置词库
+PRESET_WORDS = [
+    {"word": "pen", "phonetic": "/pen/", "meaning": "钢笔", "sentence": "I have a pen."},
+    {"word": "pencil", "phonetic": "/ˈpensl/", "meaning": "铅笔", "sentence": "This is my pencil."},
+    {"word": "book", "phonetic": "/bʊk/", "meaning": "书", "sentence": "I like this book."},
+    {"word": "bag", "phonetic": "/bæɡ/", "meaning": "书包", "sentence": "My bag is blue."},
+    {"word": "ruler", "phonetic": "/ˈruːlə/", "meaning": "尺子", "sentence": "Show me your ruler."},
+    {"word": "eraser", "phonetic": "/ɪˈreɪzə/", "meaning": "橡皮", "sentence": "I need an eraser."},
+    {"word": "pencil-box", "phonetic": "/ˈpenslbɒks/", "meaning": "铅笔盒", "sentence": "Open your pencil-box."},
+    {"word": "school", "phonetic": "/skuːl/", "meaning": "学校", "sentence": "Let's go to school."},
+    {"word": "teacher", "phonetic": "/ˈtiːtʃə/", "meaning": "老师", "sentence": "She is my teacher."},
+    {"word": "student", "phonetic": "/ˈstjuːdənt/", "meaning": "学生", "sentence": "I am a student."},
+    {"word": "boy", "phonetic": "/bɔɪ/", "meaning": "男孩", "sentence": "He is a boy."},
+    {"word": "girl", "phonetic": "/ɡɜːl/", "meaning": "女孩", "sentence": "She is a girl."},
+    {"word": "this", "phonetic": "/ðɪs/", "meaning": "这，这个", "sentence": "This is a dog."},
+    {"word": "that", "phonetic": "/ðæt/", "meaning": "那，那个", "sentence": "That is a cat."},
+    {"word": "face", "phonetic": "/feɪs/", "meaning": "脸", "sentence": "Touch my face."},
+    {"word": "ear", "phonetic": "/ɪə/", "meaning": "耳朵", "sentence": "This is my ear."},
+    {"word": "eye", "phonetic": "/aɪ/", "meaning": "眼睛", "sentence": "I have two eyes."},
+    {"word": "nose", "phonetic": "/nəʊz/", "meaning": "鼻子", "sentence": "Look at my nose."},
+    {"word": "mouth", "phonetic": "/maʊθ/", "meaning": "嘴", "sentence": "Open your mouth."},
+    {"word": "arm", "phonetic": "/ɑːm/", "meaning": "胳膊", "sentence": "Wave your arm."},
+    {"word": "hand", "phonetic": "/hænd/", "meaning": "手", "sentence": "Clap your hands."},
+    {"word": "head", "phonetic": "/hed/", "meaning": "头", "sentence": "Touch your head."},
+    {"word": "body", "phonetic": "/ˈbɒdi/", "meaning": "身体", "sentence": "Shake your body."},
+    {"word": "leg", "phonetic": "/leɡ/", "meaning": "腿", "sentence": "Shake your leg."},
+    {"word": "foot", "phonetic": "/fʊt/", "meaning": "脚", "sentence": "Stamp your foot."},
+    {"word": "cat", "phonetic": "/kæt/", "meaning": "猫", "sentence": "It's a cat."},
+    {"word": "dog", "phonetic": "/dɒɡ/", "meaning": "狗", "sentence": "It's a dog."},
+    {"word": "monkey", "phonetic": "/ˈmʌŋki/", "meaning": "猴子", "sentence": "Funny monkey."},
+    {"word": "panda", "phonetic": "/ˈpændə/", "meaning": "熊猫", "sentence": "I like panda."},
+    {"word": "bird", "phonetic": "/bɜːd/", "meaning": "鸟", "sentence": "A bird can fly."},
+    {"word": "rabbit", "phonetic": "/ˈræbɪt/", "meaning": "兔子", "sentence": "White rabbit."},
+    {"word": "duck", "phonetic": "/dʌk/", "meaning": "鸭子", "sentence": "Quack, quack, duck."},
+    {"word": "pig", "phonetic": "/pɪɡ/", "meaning": "猪", "sentence": "Big pig."},
+    {"word": "red", "phonetic": "/red/", "meaning": "红色", "sentence": "I see red."},
+    {"word": "yellow", "phonetic": "/ˈjeləʊ/", "meaning": "黄色", "sentence": "I see yellow."},
+    {"word": "green", "phonetic": "/ɡriːn/", "meaning": "绿色", "sentence": "I see green."},
+    {"word": "blue", "phonetic": "/bluː/", "meaning": "蓝色", "sentence": "I see blue."},
+    {"word": "purple", "phonetic": "/ˈpɜːpl/", "meaning": "紫色", "sentence": "I see purple."},
+    {"word": "white", "phonetic": "/waɪt/", "meaning": "白色", "sentence": "I see white."},
+    {"word": "black", "phonetic": "/blæk/", "meaning": "黑色", "sentence": "I see black."},
+    {"word": "orange", "phonetic": "/ˈɒrɪndʒ/", "meaning": "橙色", "sentence": "I see orange."},
+    {"word": "pink", "phonetic": "/pɪŋk/", "meaning": "粉色", "sentence": "I see pink."},
+    {"word": "brown", "phonetic": "/braʊn/", "meaning": "棕色", "sentence": "I see brown."},
+    {"word": "one", "phonetic": "/wʌn/", "meaning": "一", "sentence": "One pen."},
+    {"word": "two", "phonetic": "/tuː/", "meaning": "二", "sentence": "Two apples."},
+    {"word": "three", "phonetic": "/θriː/", "meaning": "三", "sentence": "Three books."},
+    {"word": "four", "phonetic": "/fɔː/", "meaning": "四", "sentence": "Four cats."},
+    {"word": "five", "phonetic": "/faɪv/", "meaning": "五", "sentence": "Five dogs."},
+    {"word": "six", "phonetic": "/sɪks/", "meaning": "六", "sentence": "Six birds."},
+    {"word": "seven", "phonetic": "/ˈsevən/", "meaning": "七", "sentence": "Seven rabbits."},
+    {"word": "eight", "phonetic": "/eɪt/", "meaning": "八", "sentence": "Eight ducks."},
+    {"word": "nine", "phonetic": "/naɪn/", "meaning": "九", "sentence": "Nine pigs."},
+    {"word": "ten", "phonetic": "/ten/", "meaning": "十", "sentence": "Ten pencils."}
+]
+
+# 初始化自定义词库
 def init_data():
     if not os.path.exists(DATA_FILE):
         df = pd.DataFrame(columns=[
-            "word", "unit", "meaning", "sentence",
+            "word", "phonetic", "meaning", "sentence",
             "add_time", "master", "wrong_count"
         ])
         df.to_csv(DATA_FILE, index=False, encoding="utf-8-sig")
+
+# 初始化预置词库
+def init_preset():
+    if not os.path.exists(PRESET_FILE):
+        df = pd.DataFrame(PRESET_WORDS)
+        df["add_time"] = datetime.now().strftime("%Y-%m-%d %H:%M")
+        df["master"] = 0
+        df["wrong_count"] = 0
+        df.to_csv(PRESET_FILE, index=False, encoding="utf-8-sig")
 
 # 读取单词库
 def load_words():
     return pd.read_csv(DATA_FILE, encoding="utf-8-sig")
 
+# 读取预置词库
+def load_preset():
+    return pd.read_csv(PRESET_FILE, encoding="utf-8-sig")
+
 # 保存单词库
 def save_words(df):
     df.to_csv(DATA_FILE, index=False, encoding="utf-8-sig")
+
+# 保存预置词库
+def save_preset(df):
+    df.to_csv(PRESET_FILE, index=False, encoding="utf-8-sig")
 
 # 页面配置
 st.set_page_config(
@@ -46,14 +121,23 @@ if "test_words" not in st.session_state:
     st.session_state.test_words = pd.DataFrame()
 if "user_answers" not in st.session_state:
     st.session_state.user_answers = {}
-    
+
 init_data()
+init_preset()
 df = load_words()
+preset_df = load_preset()
 
 # 侧边栏导航
 menu = st.sidebar.radio(
     "功能菜单",
-    ["📝 添加生词", "📚 单词记忆库", "🃏 背诵卡片","🧪 随机小测试", "📊 学习统计"]
+    [
+        "📝 添加生词",
+        "📚 单词记忆库(可编辑)",
+        "📖 预置单词库(一年级)",
+        "🃏 背诵卡片",
+        "🧪 随机小测试",
+        "📊 学习统计"
+    ]
 )
 
 # 1. 添加生词
@@ -61,7 +145,7 @@ if menu == "📝 添加生词":
     st.header("📝 录入新单词")
     with st.form("word_form"):
         word = st.text_input("英文单词")
-        unit = st.text_input("单元（选填）")
+        phonetic = st.text_input("音标（选填）")
         meaning = st.text_input("中文释义")
         sentence = st.text_input("简单例句（儿童短句）")
         submitted = st.form_submit_button("保存到记忆库")
@@ -70,7 +154,7 @@ if menu == "📝 添加生词":
         if word.strip() and meaning.strip():
             new_row = {
                 "word": word.strip(),
-                "unit": unit.strip(),
+                "phonetic": phonetic.strip(),
                 "meaning": meaning.strip(),
                 "sentence": sentence.strip(),
                 "add_time": datetime.now().strftime("%Y-%m-%d %H:%M"),
@@ -83,39 +167,34 @@ if menu == "📝 添加生词":
         else:
             st.warning("请填写单词和释义")
 
-# 2. 单词记忆库 + 编辑/删除功能
-elif menu == "📚 单词记忆库":
+# 2. 单词记忆库(可编辑)
+elif menu == "📚 单词记忆库(可编辑)":
     st.header("📚 单词记忆库 & 在线编辑")
-    st.info("支持修改单词、释义、单元、例句，也可删除不需要的单词")
+    st.info("双击单元格即可修改内容，修改后记得保存")
 
-    # 可编辑表格
     edit_df = st.data_editor(
         df,
         use_container_width=True,
         num_rows="dynamic"
     )
 
-    # 保存编辑内容
     if st.button("💾 保存修改内容"):
         save_words(edit_df)
-        st.success("✅ 单词表修改已保存！")
-        # 刷新数据
+        st.success("✅ 修改已保存！")
         df = load_words()
 
     st.divider()
-    # 单独删除指定单词
-    st.subheader("🗑️ 删除单个单词")
+    st.subheader("🗑️ 删除指定单词")
     if len(df) > 0:
-        del_word = st.selectbox("选择要删除的单词", df["word"].tolist())
+        del_word = st.selectbox("选择单词", df["word"].tolist())
         if st.button("确认删除"):
             df = df[df["word"] != del_word].reset_index(drop=True)
             save_words(df)
-            st.success(f"✅ 已删除单词：{del_word}")
+            st.success(f"✅ 已删除：{del_word}")
     else:
-        st.info("暂无单词可删除")
+        st.info("暂无单词")
 
     st.divider()
-    # 导出
     st.download_button(
         label="📥 导出单词表",
         data=edit_df.to_csv(index=False, encoding="utf-8-sig"),
@@ -123,32 +202,60 @@ elif menu == "📚 单词记忆库":
         mime="text/csv"
     )
 
-# 3. 背诵卡片 【新增核心模块】
+# 3. 预置单词库（一年级）
+elif menu == "📖 预置单词库(一年级)":
+    st.header("📖 人教版小学一年级英语单词库")
+    st.success("内置53个一年级核心单词，只读不可编辑，学习进度自动保存")
+    st.dataframe(preset_df[["word", "phonetic", "meaning", "sentence"]], use_container_width=True)
+    
+    st.divider()
+    st.subheader("📊 预置词库学习进度")
+    total_p = len(preset_df)
+    master_p = len(preset_df[preset_df["master"] == 1])
+    weak_p = len(preset_df[preset_df["master"] == 0])
+    
+    c1, c2, c3 = st.columns(3)
+    with c1:
+        st.metric("总单词数", total_p)
+    with c2:
+        st.metric("已掌握", master_p)
+    with c3:
+        st.metric("待学习", weak_p)
+
+# 4. 背诵卡片
 elif menu == "🃏 背诵卡片":
     st.header("🃏 单词卡片背诵")
+    
+    # 词库选择
+    book_source = st.radio("选择词库", ["自定义记忆库", "一年级预置词库"], horizontal=True)
     mode = st.radio("背诵范围", ["全部单词", "仅未掌握单词"], horizontal=True)
 
-    # 筛选卡片列表
-    if mode == "仅未掌握单词":
-        card_df = df[df["master"] == 0].reset_index(drop=True)
+    # 加载对应词库
+    if book_source == "自定义记忆库":
+        source_df = df
+        save_func = save_words
     else:
-        card_df = df.reset_index(drop=True)
+        source_df = preset_df
+        save_func = save_preset
+
+    # 筛选范围
+    if mode == "仅未掌握单词":
+        card_df = source_df[source_df["master"] == 0].reset_index(drop=True)
+    else:
+        card_df = source_df.reset_index(drop=True)
 
     if len(card_df) == 0:
         st.info("暂无需要背诵的单词～")
     else:
-        # 重置卡片列表
         if not st.session_state.card_list or len(st.session_state.card_list) != len(card_df):
             st.session_state.card_list = card_df.index.tolist()
             random.shuffle(st.session_state.card_list)
             st.session_state.card_idx = 0
             st.session_state.show_chinese = False
 
-        # 当前单词
         now_idx = st.session_state.card_list[st.session_state.card_idx]
         row = card_df.loc[now_idx]
 
-        # 卡片样式
         card_style = """
         <style>
         .card{
@@ -162,26 +269,24 @@ elif menu == "🃏 背诵卡片":
         """
         st.markdown(card_style, unsafe_allow_html=True)
 
-        # 卡片正反面
         if not st.session_state.show_chinese:
             st.markdown(f"""
             <div class="card">
                 <h2>{row['word']}</h2>
-                <p style="color:#666;">{row['unit']}</p>
+                <p style="color:#666;">{row['phonetic']}</p>
             </div>
             """, unsafe_allow_html=True)
         else:
             st.markdown(f"""
             <div class="card">
                 <h2>{row['word']}</h2>
-                <p style="color:#666;">{row['unit']}</p>
+                <p style="color:#666;">{row['phonetic']}</p>
                 <hr>
                 <h3 style="color:#2E86AB;">{row['meaning']}</h3>
                 <p style="color:#888;">{row['sentence']}</p>
             </div>
             """, unsafe_allow_html=True)
 
-        # 功能按钮
         col1, col2, col3, col4 = st.columns(4)
         with col1:
             if st.button("🔍 显示释义"):
@@ -205,28 +310,44 @@ elif menu == "🃏 背诵卡片":
                 st.rerun()
 
         st.divider()
-        # 掌握标记
         c1, c2 = st.columns(2)
         with c1:
             if st.button("✅ 标记为已掌握"):
-                df.loc[df["word"] == row["word"], "master"] = 1
-                save_words(df)
+                if book_source == "自定义记忆库":
+                    df.loc[df["word"] == row["word"], "master"] = 1
+                else:
+                    preset_df.loc[preset_df["word"] == row["word"], "master"] = 1
+                save_func(source_df)
                 st.success(f"【{row['word']}】已标记掌握")
                 st.rerun()
         with c2:
             if st.button("❌ 标记为薄弱"):
-                df.loc[df["word"] == row["word"], "master"] = 0
-                save_words(df)
+                if book_source == "自定义记忆库":
+                    df.loc[df["word"] == row["word"], "master"] = 0
+                else:
+                    preset_df.loc[preset_df["word"] == row["word"], "master"] = 0
+                save_func(source_df)
                 st.warning(f"【{row['word']}】设为薄弱词")
                 st.rerun()
 
         st.caption(f"进度：{st.session_state.card_idx+1} / {len(st.session_state.card_list)}")
 
-# 4. 自动小测试
+# 5. 随机小测试
 elif menu == "🧪 随机小测试":
     st.header("🧪 生词小测验")
-    if len(df) == 0:
-        st.info("记忆库暂无单词，请先添加生词")
+    
+    # 词库选择
+    book_source = st.radio("选择词库", ["自定义记忆库", "一年级预置词库"], horizontal=True)
+    
+    if book_source == "自定义记忆库":
+        test_df = df
+        save_func = save_words
+    else:
+        test_df = preset_df
+        save_func = save_preset
+
+    if len(test_df) == 0:
+        st.info("当前词库暂无单词")
     else:
         test_num = st.slider("本次出题数量", 3, 15, 5)
         
@@ -234,7 +355,7 @@ elif menu == "🧪 随机小测试":
         with col1:
             if st.button("开始测试"):
                 st.session_state.test_started = True
-                st.session_state.test_words = df.sample(min(test_num, len(df))).reset_index(drop=True)
+                st.session_state.test_words = test_df.sample(min(test_num, len(test_df))).reset_index(drop=True)
                 st.session_state.user_answers = {}
                 st.rerun()
         with col2:
@@ -250,22 +371,19 @@ elif menu == "🧪 随机小测试":
             
             st.subheader(f"本次共 {total} 题，全部答完后提交")
             
-            # 显示所有题目，保存答案到会话状态
             for idx, row in test_words.iterrows():
                 st.divider()
                 st.subheader(f"题目 {idx+1}")
                 st.write(f"**单词：{row['word']}**")
                 
-                # 保存用户输入
                 key = f"ans_{idx}"
                 ans = st.text_input(f"请写出中文释义", value=st.session_state.user_answers.get(key, ""), key=key)
                 st.session_state.user_answers[key] = ans.strip()
 
-            # 提交判分按钮
             st.divider()
             if st.button("✅ 提交全部答案"):
                 score = 0
-                df_local = load_words()
+                df_local = test_df.copy()
                 
                 for idx, row in test_words.iterrows():
                     user_ans = st.session_state.user_answers.get(f"ans_{idx}", "")
@@ -284,25 +402,37 @@ elif menu == "🧪 随机小测试":
                         st.error("答错啦❌")
                         df_local.loc[df_local["word"] == row["word"], "wrong_count"] += 1
                 
-                # 保存错误次数并显示分数
-                save_words(df_local)
+                save_func(df_local)
                 st.divider()
                 st.metric("最终得分", f"{score}/{total}")
-                
-                # 测试结束
                 st.session_state.test_started = False
 
-# 5. 学习统计
+# 6. 学习统计
 elif menu == "📊 学习统计":
     st.header("📊 学习数据统计")
-    total_cnt = len(df)
-    wrong_total = df["wrong_count"].sum()
-    col1, col2 = st.columns(2)
-    with col1:
-        st.metric("已收录生词总数", total_cnt)
-    with col2:
-        st.metric("累计错题次数", wrong_total)
+    
+    # 词库选择
+    book_source = st.radio("查看词库", ["自定义记忆库", "一年级预置词库"], horizontal=True)
+    
+    if book_source == "自定义记忆库":
+        stat_df = df
+    else:
+        stat_df = preset_df
 
-    st.subheader("易错单词TOP5")
-    hard_words = df.sort_values("wrong_count", ascending=False).head(5)
+    total_cnt = len(stat_df)
+    master_cnt = len(stat_df[stat_df["master"] == 1])
+    weak_cnt = len(stat_df[stat_df["master"] == 0])
+    wrong_total = stat_df["wrong_count"].sum()
+
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.metric("总生词数", total_cnt)
+    with col2:
+        st.metric("已掌握", master_cnt)
+    with col3:
+        st.metric("待复习", weak_cnt)
+
+    st.divider()
+    st.subheader("⚠️ 易错单词TOP5")
+    hard_words = stat_df.sort_values("wrong_count", ascending=False).head(5)
     st.dataframe(hard_words[["word","meaning","wrong_count"]], use_container_width=True)
