@@ -1,0 +1,54 @@
+﻿word,phonetic,meaning,sentence,add_time,master,wrong_count
+pen,/pen/,钢笔,I have a pen.,2026-04-26 18:08,0,0
+pencil,/ˈpensl/,铅笔,This is my pencil.,2026-04-26 18:08,0,0
+book,/bʊk/,书,I like this book.,2026-04-26 18:08,0,0
+bag,/bæɡ/,书包,My bag is blue.,2026-04-26 18:08,0,0
+ruler,/ˈruːlə/,尺子,Show me your ruler.,2026-04-26 18:08,0,0
+eraser,/ɪˈreɪzə/,橡皮,I need an eraser.,2026-04-26 18:08,0,1
+pencil-box,/ˈpenslbɒks/,铅笔盒,Open your pencil-box.,2026-04-26 18:08,0,0
+school,/skuːl/,学校,Let's go to school.,2026-04-26 18:08,0,0
+teacher,/ˈtiːtʃə/,老师,She is my teacher.,2026-04-26 18:08,0,0
+student,/ˈstjuːdənt/,学生,I am a student.,2026-04-26 18:08,0,0
+boy,/bɔɪ/,男孩,He is a boy.,2026-04-26 18:08,0,0
+girl,/ɡɜːl/,女孩,She is a girl.,2026-04-26 18:08,0,0
+this,/ðɪs/,这，这个,This is a dog.,2026-04-26 18:08,0,0
+that,/ðæt/,那，那个,That is a cat.,2026-04-26 18:08,0,0
+face,/feɪs/,脸,Touch my face.,2026-04-26 18:08,0,0
+ear,/ɪə/,耳朵,This is my ear.,2026-04-26 18:08,0,0
+eye,/aɪ/,眼睛,I have two eyes.,2026-04-26 18:08,0,0
+nose,/nəʊz/,鼻子,Look at my nose.,2026-04-26 18:08,0,0
+mouth,/maʊθ/,嘴,Open your mouth.,2026-04-26 18:08,0,0
+arm,/ɑːm/,胳膊,Wave your arm.,2026-04-26 18:08,0,0
+hand,/hænd/,手,Clap your hands.,2026-04-26 18:08,0,0
+head,/hed/,头,Touch your head.,2026-04-26 18:08,0,0
+body,/ˈbɒdi/,身体,Shake your body.,2026-04-26 18:08,0,1
+leg,/leɡ/,腿,Shake your leg.,2026-04-26 18:08,0,0
+foot,/fʊt/,脚,Stamp your foot.,2026-04-26 18:08,0,0
+cat,/kæt/,猫,It's a cat.,2026-04-26 18:08,0,0
+dog,/dɒɡ/,狗,It's a dog.,2026-04-26 18:08,0,0
+monkey,/ˈmʌŋki/,猴子,Funny monkey.,2026-04-26 18:08,0,0
+panda,/ˈpændə/,熊猫,I like panda.,2026-04-26 18:08,0,0
+bird,/bɜːd/,鸟,A bird can fly.,2026-04-26 18:08,0,0
+rabbit,/ˈræbɪt/,兔子,White rabbit.,2026-04-26 18:08,0,0
+duck,/dʌk/,鸭子,"Quack, quack, duck.",2026-04-26 18:08,0,0
+pig,/pɪɡ/,猪,Big pig.,2026-04-26 18:08,0,0
+red,/red/,红色,I see red.,2026-04-26 18:08,0,0
+yellow,/ˈjeləʊ/,黄色,I see yellow.,2026-04-26 18:08,0,0
+green,/ɡriːn/,绿色,I see green.,2026-04-26 18:08,0,0
+blue,/bluː/,蓝色,I see blue.,2026-04-26 18:08,0,0
+purple,/ˈpɜːpl/,紫色,I see purple.,2026-04-26 18:08,0,0
+white,/waɪt/,白色,I see white.,2026-04-26 18:08,0,0
+black,/blæk/,黑色,I see black.,2026-04-26 18:08,1,0
+orange,/ˈɒrɪndʒ/,橙色,I see orange.,2026-04-26 18:08,0,0
+pink,/pɪŋk/,粉色,I see pink.,2026-04-26 18:08,0,0
+brown,/braʊn/,棕色,I see brown.,2026-04-26 18:08,0,0
+one,/wʌn/,一,One pen.,2026-04-26 18:08,0,0
+two,/tuː/,二,Two apples.,2026-04-26 18:08,0,0
+three,/θriː/,三,Three books.,2026-04-26 18:08,0,0
+four,/fɔː/,四,Four cats.,2026-04-26 18:08,0,0
+five,/faɪv/,五,Five dogs.,2026-04-26 18:08,0,0
+six,/sɪks/,六,Six birds.,2026-04-26 18:08,0,0
+seven,/ˈsevən/,七,Seven rabbits.,2026-04-26 18:08,0,0
+eight,/eɪt/,八,Eight ducks.,2026-04-26 18:08,0,0
+nine,/naɪn/,九,Nine pigs.,2026-04-26 18:08,0,0
+ten,/ten/,十,Ten pencils.,2026-04-26 18:08,0,0

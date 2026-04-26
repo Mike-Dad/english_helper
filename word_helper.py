@@ -140,18 +140,19 @@ menu = st.sidebar.radio(
     ]
 )
 
-# 1. 添加生词
+# 1. 添加生词（修改：仅单词必填，释义/例句选填）
 if menu == "📝 添加生词":
     st.header("📝 录入新单词")
     with st.form("word_form"):
-        word = st.text_input("英文单词")
+        word = st.text_input("英文单词（必填）")
         phonetic = st.text_input("音标（选填）")
-        meaning = st.text_input("中文释义")
-        sentence = st.text_input("简单例句（儿童短句）")
+        meaning = st.text_input("中文释义（选填）")
+        sentence = st.text_input("简单例句（选填）")
         submitted = st.form_submit_button("保存到记忆库")
 
     if submitted:
-        if word.strip() and meaning.strip():
+        # 仅校验单词必填
+        if word.strip():
             new_row = {
                 "word": word.strip(),
                 "phonetic": phonetic.strip(),
@@ -165,7 +166,7 @@ if menu == "📝 添加生词":
             save_words(df)
             st.success(f"✅ 单词【{word}】已存入记忆库！")
         else:
-            st.warning("请填写单词和释义")
+            st.warning("请填写单词")
 
 # 2. 单词记忆库(可编辑)
 elif menu == "📚 单词记忆库(可编辑)":
@@ -222,7 +223,7 @@ elif menu == "📖 预置单词库(一年级)":
     with c3:
         st.metric("待学习", weak_p)
 
-# 4. 背诵卡片
+# 4. 背诵卡片（修改：默认不显示音标，音标放入显示释义中）
 elif menu == "🃏 背诵卡片":
     st.header("🃏 单词卡片背诵")
     
@@ -269,13 +270,14 @@ elif menu == "🃏 背诵卡片":
         """
         st.markdown(card_style, unsafe_allow_html=True)
 
+        # 默认仅显示单词，不显示音标
         if not st.session_state.show_chinese:
             st.markdown(f"""
             <div class="card">
                 <h2>{row['word']}</h2>
-                <p style="color:#666;">{row['phonetic']}</p>
             </div>
             """, unsafe_allow_html=True)
+        # 显示释义时：单词+音标+释义+例句
         else:
             st.markdown(f"""
             <div class="card">
@@ -332,7 +334,7 @@ elif menu == "🃏 背诵卡片":
 
         st.caption(f"进度：{st.session_state.card_idx+1} / {len(st.session_state.card_list)}")
 
-# 5. 随机小测试
+# 5. 随机小测试（修改：删除输入框，改为选择对/错）
 elif menu == "🧪 随机小测试":
     st.header("🧪 生词小测验")
     
@@ -377,8 +379,9 @@ elif menu == "🧪 随机小测试":
                 st.write(f"**单词：{row['word']}**")
                 
                 key = f"ans_{idx}"
-                ans = st.text_input(f"请写出中文释义", value=st.session_state.user_answers.get(key, ""), key=key)
-                st.session_state.user_answers[key] = ans.strip()
+                # 替换为：手动选择对/错
+                ans = st.radio("你是否掌握该单词？", ["对", "错"], key=key, horizontal=True)
+                st.session_state.user_answers[key] = ans
 
             st.divider()
             if st.button("✅ 提交全部答案"):
@@ -387,19 +390,18 @@ elif menu == "🧪 随机小测试":
                 
                 for idx, row in test_words.iterrows():
                     user_ans = st.session_state.user_answers.get(f"ans_{idx}", "")
-                    correct_ans = row["meaning"].strip()
                     
                     st.divider()
                     st.subheader(f"第 {idx+1} 题结果")
-                    st.write(f"单词：**{row['word']}**")
-                    st.write(f"你的答案：{user_ans}")
-                    st.write(f"正确答案：{correct_ans}")
+                    st.write(f"单词：**{row['word']}** ")
+                    st.write(f"你的选择：{user_ans}")
                     
-                    if user_ans == correct_ans:
-                        st.success("答对啦🎉")
+                    # 选择对=测试通过，得分+1；选择错=不通过，错题数+1
+                    if user_ans == "对":
+                        st.success("测试通过🎉")
                         score += 1
                     else:
-                        st.error("答错啦❌")
+                        st.error("测试未通过❌")
                         df_local.loc[df_local["word"] == row["word"], "wrong_count"] += 1
                 
                 save_func(df_local)
